@@ -29,7 +29,7 @@ import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 ```
-#Sample documents stored in a dictionary
+Sample documents stored in a dictionary
 
 ```python
 documents = {
@@ -48,12 +48,12 @@ def preprocess_text(text):
     return " ".join(tokens)
 ```
 
-#Preprocess documents and store them in a dictionary
+Preprocess documents and store them in a dictionary
 ```python
 preprocessed_docs = {doc_id: preprocess_text(doc) for doc_id, doc in documents.items()}
 ```
 
-#Construct TF-IDF matrix
+Construct TF-IDF matrix
 ```python
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform(preprocessed_docs.values())
