@@ -59,6 +59,46 @@ tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform(preprocessed_docs.values())
 ```
 
+Calculate cosine similarity between query and documents
+```python
+def search(query, tfidf_matrix, tfidf_vectorizer):
+    preprocessed_query = preprocess_text(query)
+query_vector = tfidf_vectorizer.transform([preprocessed_query])
+
+# Calculate cosine similarity between query and documents
+similarity_scores = cosine_similarity(query_vector, tfidf_matrix)
+
+# Sort documents based on similarity scores
+sorted_indexes = similarity_scores.argsort()[0][::-1]
+
+# Return sorted documents along with their similarity scores
+results = [(list(preprocessed_docs.keys())[i], list(documents.values())[i], similarity_scores[0, i]) for i in sorted_indexes]
+return results
+```
+
+Get input from user
+```python
+query = input("Enter your query: ")
+```
+
+Perform search
+```python
+search_results = search(query, tfidf_matrix, tfidf_vectorizer)
+Display search results
+print("Query:", query)
+for i, result in enumerate(search_results, start=1):
+    print(f"\nRank: {i}")
+    print("Document ID:", result[0])
+    print("Document:", result[1])
+    print("Similarity Score:", result[2])
+    print("----------------------")
+```
+Get the highest rank cosine score
+```python
+highest_rank_score = max(result[2] for result in search_results)
+print("The highest rank cosine score is:", highest_rank_score)
+```
+
 ### Output:
 ![image](https://github.com/user-attachments/assets/ec36251f-487b-4779-8f4a-0238d19c9f67)
 
